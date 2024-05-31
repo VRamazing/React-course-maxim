@@ -1,6 +1,8 @@
 import TabButton from "../components/TabButton.jsx"
 import {useState} from "react"
 import { EXAMPLES } from "../data.js";
+import Section from "./Section.jsx";
+import Tabs from "./Tabs.jsx";
 
 export default function Example(){
     let [selectedContent, setselectedContent] =  useState("");
@@ -9,14 +11,14 @@ export default function Example(){
       setselectedContent(selectedButton)
     }
     return (
-        <section id="examples">
-            <h2>Examples</h2>
-            <menu>
-                <li><TabButton onSelect={()=>handleClick("components")} isSelected={selectedContent==="components"}>Components</TabButton></li>
-                <li><TabButton onSelect={()=>handleClick("jsx")} isSelected={selectedContent==="jsx"}>JSX</TabButton></li>
-                <li><TabButton onSelect={()=>handleClick("props")} isSelected={selectedContent==="props"}>Props</TabButton></li>
-                <li><TabButton onSelect={()=>handleClick("state")} isSelected={selectedContent==="state"}>State</TabButton></li>
-            </menu>
+        <Section id="examples" title={"Examples"}>
+            <Tabs 
+                buttons={<>
+                <TabButton onClick={()=>handleClick("components")} isSelected={selectedContent==="components"}>Components</TabButton>
+                <TabButton onClick={()=>handleClick("jsx")} isSelected={selectedContent==="jsx"}>JSX</TabButton>
+                <TabButton onClick={()=>handleClick("props")} isSelected={selectedContent==="props"}>Props</TabButton>
+               <TabButton onClick={()=>handleClick("state")} isSelected={selectedContent==="state"}>State</TabButton></>}>
+            
             {selectedContent ? (
                 <div id="tab-content">
                 <h3>{EXAMPLES[selectedContent].title}</h3>
@@ -26,6 +28,9 @@ export default function Example(){
                 </pre>
                 </div>
             ) : <p> Please select a topic. </p>}
-        </section>  
+            
+            </Tabs>
+            
+        </Section>  
     )
 }
